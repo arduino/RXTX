@@ -677,6 +677,7 @@ public class RXTXCommDriver implements CommDriver
 					if(osName.equals("Linux"))
 					{
 						String[] Temp = {
+						"ttyACM", // linux CDC devices
 						"ttyS", // linux Serial Ports
 						"ttySA", // for the IPAQs
 						"ttyUSB", // for USB frobs
