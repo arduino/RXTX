@@ -1337,7 +1337,7 @@ int init_threads( struct event_info_struct *eis )
 	report("init_threads: get eis\n");
 	jeis  = (*eis->env)->GetFieldID( eis->env, eis->jclazz, "eis", "J" );
 	report("init_threads: set eis\n");
-	(*eis->env)->SetIntField(eis->env, *eis->jobj, jeis, ( size_t ) eis );
+	(*eis->env)->SetLongField(eis->env, *eis->jobj, jeis, ( size_t ) eis );
 	report("init_threads:  stop\n");
 	report_time_end( );
 	return( 1 );
@@ -1530,7 +1530,7 @@ JNIEXPORT jboolean JNICALL RXTXPort(nativeDrain)( JNIEnv *env,
 	jobject jobj, jboolean interrupted )
 {
 	int fd = get_java_var( env, jobj,"fd","I" );
-	struct event_info_struct *eis = ( struct event_info_struct * ) get_java_var( env, jobj, "eis", "J" );
+	struct event_info_struct *eis = ( struct event_info_struct * ) get_java_var_long( env, jobj, "eis", "J" );
 	int result, count=0;
 
 	char message[80];
@@ -2939,7 +2939,7 @@ int read_byte_array( JNIEnv *env,
 	/* TRENT */
 	int flag, count = 0;
 	struct event_info_struct *eis = ( struct event_info_struct * )
-		get_java_var( env, *jobj,"eis","J" );
+		get_java_var_long( env, *jobj,"eis","J" );
 	
 	report_time_start();
 	flag = eis->eventflags[SPE_DATA_AVAILABLE];
@@ -4873,9 +4873,9 @@ get_java_var
    exceptions:  none
    comments:
 ----------------------------------------------------------*/
-size_t get_java_var( JNIEnv *env, jobject jobj, char *id, char *type )
+long get_java_var_long( JNIEnv *env, jobject jobj, char *id, char *type )
 {
-	int result = 0;
+	long result = 0;
 	jclass jclazz = (*env)->GetObjectClass( env, jobj );
 	jfieldID jfd = (*env)->GetFieldID( env, jclazz, id, type );
 
@@ -4889,7 +4889,11 @@ size_t get_java_var( JNIEnv *env, jobject jobj, char *id, char *type )
 		LEAVE( "get_java_var" );
 		return result;
 	}
-	result = (int)( (*env)->GetIntField( env, jobj, jfd ) );
+	if ( !strcmp( type, "J" ) ) {
+		result = (long)( (*env)->GetLongField( env, jobj, jfd ) );
+	} else {
+		result = (int) ( (*env)->GetIntField( env, jobj, jfd ) );
+	}
 /* ct7 & gel * Added DeleteLocalRef */
 	(*env)->DeleteLocalRef( env, jclazz );
 	if(!strncmp( "fd",id,2) && result == 0)
@@ -4898,6 +4902,10 @@ size_t get_java_var( JNIEnv *env, jobject jobj, char *id, char *type )
 	LEAVE( "get_java_var" );
 */
 	return result;
+}
+
+int get_java_var( JNIEnv *env, jobject jobj, char *id, char *type ) {
+	return (int) get_java_var_long( env, jobj, id, type );
 }
 
 /*----------------------------------------------------------
