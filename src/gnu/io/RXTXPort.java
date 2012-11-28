@@ -892,7 +892,7 @@ final public class RXTXPort extends SerialPort
 		while( MonitorThreadLock )
 		{
 			try {
-				Thread.sleep(5);
+				Thread.sleep(1);
 			} catch( Exception e ) {}
 		}
 	}

@@ -4065,10 +4065,11 @@ void report_serial_events( struct event_info_struct *eis )
 /*
 			report(".");
 */
-			usleep(20000);
+			//low latency patch here, sleep was 20000
+			usleep(1000);
 #if !defined(__sun__)
 	/* FIXME: No time to test on all OS's for production */
-			usleep(20000);
+			usleep(1000);
 #endif /* !__sun__ */
 			return;
 		}
@@ -4081,7 +4082,7 @@ void report_serial_events( struct event_info_struct *eis )
 #if !defined(__sun__)
 #endif /* !__sun__ */
 		}
-		usleep(20000);
+		usleep(1000);
 	}
 }
 
@@ -4292,7 +4293,7 @@ RXTXVersion.nativeGetVersion
 JNIEXPORT jstring JNICALL RXTXVersion(nativeGetVersion) (JNIEnv *env,
 	jclass jclazz )
 {
-	return (*env)->NewStringUTF( env, "RXTX-2.2" );
+	return (*env)->NewStringUTF( env, "RXTX-2.2 http://PixelInvaders.ch low latency edition" );
 }
 
 /*----------------------------------------------------------

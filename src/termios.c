@@ -3207,7 +3207,7 @@ int  serial_select( int  n,  fd_set  *readfds,  fd_set  *writefds,
 	}
 end:
 	/*  You may want to chop this out for lower latency */
-	usleep(1000);
+//	usleep(1000);
 	LEAVE( "serial_select" );
 	return( 1 );
 timeout:
