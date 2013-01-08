@@ -69,6 +69,7 @@
 #include <errno.h>
 #include <signal.h>
 #include <pwd.h>
+#include <limits.h>
 
 #define FHS
 #define LOCKFILEPREFIX "LCK.."
