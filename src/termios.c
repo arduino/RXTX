@@ -120,25 +120,71 @@ serial_test
 ----------------------------------------------------------*/
 int serial_test( char * filename )
 {
-	unsigned long *hcomm;
-	int ret;
-	hcomm = CreateFile( filename, GENERIC_READ |GENERIC_WRITE, 0, 0, OPEN_EXISTING, 0, 0 );
-	if ( hcomm == INVALID_HANDLE_VALUE )
+	int ret = 0;
+	
+	// Getting the Windows Version
+	OSVERSIONINFO osvi;
+	BOOL bGetVer;
+	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	bGetVer = GetVersionEx(&osvi);
+	
+	// Using the QueryDosDevice API (on NT)
+	if (bGetVer && (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT))
 	{
-		if (GetLastError() == ERROR_ACCESS_DENIED)
+		// This solution is based on http://www.codeproject.com/KB/system/enumports.aspx
+		TCHAR szDevices[65535];
+		DWORD dwChars = QueryDosDevice(NULL, szDevices, 65535);
+		
+		if (dwChars)
 		{
-			ret = 1;
-		}
-		else
-		{
-			ret = 0;
+			int i=0;
+			for (;;)
+			{
+				//Get the current device name
+				char* pszCurrentDevice = &szDevices[i];
+
+				if (strlen(pszCurrentDevice) > 3 && strcmp(pszCurrentDevice,filename)==0)
+				{
+					ret = 1;
+					break;
+				}
+
+				// Go to next NULL character
+				while(szDevices[i] != '\0')
+					i++;
+
+				// Bump pointer to the next string
+				i++;
+
+				// The list is double-NULL terminated, so if the character is
+				// now NULL, we're at the end
+				if (szDevices[i] == '\0')
+					break;
+			}
 		}
 	}
 	else
 	{
-		ret = 1;
+		// Buggy way to test if we can open the comport (on Win9x)
+		unsigned long *hcomm;
+		hcomm = CreateFile( filename, GENERIC_READ |GENERIC_WRITE, 0, 0, OPEN_EXISTING, 0, 0 );
+		if ( hcomm == INVALID_HANDLE_VALUE )
+		{
+			if (GetLastError() == ERROR_ACCESS_DENIED)
+			{
+				ret = 1;
+			}
+			else
+			{
+				ret = 0;
+			}
+		}
+		else
+		{
+			ret = 1;
+		}
+		CloseHandle( hcomm );
 	}
-	CloseHandle( hcomm );
 	return(ret);
 }
 
