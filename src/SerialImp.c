@@ -4293,7 +4293,7 @@ RXTXVersion.nativeGetVersion
 JNIEXPORT jstring JNICALL RXTXVersion(nativeGetVersion) (JNIEnv *env,
 	jclass jclazz )
 {
-	return (*env)->NewStringUTF( env, "RXTX-2.2 http://PixelInvaders.ch low latency edition" );
+	return (*env)->NewStringUTF( env, "RXTX-2.2" );
 }
 
 /*----------------------------------------------------------

@@ -76,7 +76,7 @@ public class RXTXVersion
 
 	static {
 		RXTXVersion.loadLibrary( "rxtxSerial" );
-		Version = "RXTX-2.2 http://PixelInvaders.ch low latency edition";
+		Version = "RXTX-2.2";
 	}
 	/**
 	*  static method to return the current version of RXTX
