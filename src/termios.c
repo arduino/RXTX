@@ -116,7 +116,7 @@ int ends_with(const char *str, const char *suffix)
 		return 0;
 	lenstr = strlen(str);
 	lensuffix = strlen(suffix);
-	if (lensuffix >  lenstr)
+	if (lensuffix > lenstr)
 		return 0;
 	return strncmp(str + lenstr - lensuffix, suffix, lensuffix) == 0;
 }
