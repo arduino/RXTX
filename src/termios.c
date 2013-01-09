@@ -108,6 +108,19 @@ struct termios_list
 };
 struct termios_list *first_tl = NULL;
 
+int ends_with(const char *str, const char *suffix)
+{
+	size_t lenstr;
+	size_t lensuffix;
+	if (!str || !suffix)
+		return 0;
+	lenstr = strlen(str);
+	lensuffix = strlen(suffix);
+	if (lensuffix >  lenstr)
+		return 0;
+	return strncmp(str + lenstr - lensuffix, suffix, lensuffix) == 0;
+}
+
 /*----------------------------------------------------------
 serial_test
 
@@ -143,7 +156,7 @@ int serial_test( char * filename )
 				//Get the current device name
 				char* pszCurrentDevice = &szDevices[i];
 
-				if (strlen(pszCurrentDevice) > 3 && strcmp(pszCurrentDevice,filename)==0)
+				if (strlen(pszCurrentDevice) > 3 && ends_with(filename, pszCurrentDevice))
 				{
 					ret = 1;
 					break;
