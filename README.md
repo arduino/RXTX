@@ -5,8 +5,8 @@ Latest update with upstream: **2012-01-08**
 This fork of RXTX patches the upstream sources to introduce the following fixes:
 
 - support to linux ttyACM* devices
-- reduced latency
-- faster ports listing on Windows boxes with some particular hardware (Bluetooth) configurations
+- reduced latency (thanks [@neophob](https://github.com/neophob))
+- faster ports listing on Windows boxes with some particular hardware (Bluetooth) configurations (thanks eried [from the forum](http://arduino.cc/forum/index.php/topic,46977.0.html))
 
 ## Upgrading the source code
 
