@@ -2,3 +2,12 @@ CVS
 .cvsignore
 *.iml
 build
+Makefile
+config.h
+config.log
+config.status
+libtool
+stamp-h1
+gnu
+x86_64-unknown-linux-gnu
+RXTXcomm.jar
