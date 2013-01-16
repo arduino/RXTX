@@ -63,4 +63,21 @@ Thanks to @neophob for his [blog page](http://neophob.com/2011/05/serial-library
 
 # Compiling on macosx
 
-TODO
+Have the necessary tools in place. These are:
+
+ - [git](http://git-scm.com/download/mac)
+ - Java 1.6
+ - [XCode Command Line Tools](http://stackoverflow.com/questions/9329243/xcode-4-4-command-line-tools)
+ - glibtool
+
+Then, in a new terminal, clone the repo, cd into its folder, then:
+
+```bash
+mkdir build
+cd build
+rm -rf *
+CFLAGS="-arch i386" LDFLAGS="-arch i386" sh ../configure
+sed -e 's|/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/../../../Headers|/System/Library/Frameworks/JavaVM.framework/Versions/Current/Headers|g' -i '' Makefile
+sed -e 's|$(SHELL) glibtool|$(SHELL) glibtool --tag CC|g' -i '' Makefile
+make
+```
