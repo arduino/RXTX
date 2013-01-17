@@ -28,7 +28,15 @@ mkdir build
 make
 ```
 
-and get the resulting files.
+and get the resulting files: they should be in folder `YOUR_ARCH/.libs/`.
+
+If you are using a 64 bit Linux, you can produce 32 bit binaries too: run `apt-get install gcc-multilib` then run
+
+```bash
+mkdir build
+CFLAGS="-m32" ../configure
+make
+```
 
 ## Compiling on windows
 
