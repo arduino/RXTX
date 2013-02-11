@@ -51,14 +51,14 @@ Have the necessary tools in place. These are:
 After you have cloned the repo, run:
 
 ```bat
-C:\Program Files (x86)\Microsoft Visual Stu­dio 10.0\Common7\Tools>vsvars32.bat
-Set­ting envi­ron­ment for using Microsoft Visual Stu­dio 2010 x86 tools.
-C:\Program Files (x86)\Microsoft Visual Stu­dio 10.0\Common7\Tools>cd C:\RXTX\
+C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools>vsvars32.bat
+Set­ting envi­ron­ment for using Microsoft Visual Studio 2010 x86 tools.
+C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools>cd C:\RXTX\
 
 C:\RXTX> mkdir build
 C:\RXTX> copy Makefile.msvc build\Makefile
 C:\RXTX> cd build
-C:\RXTX\build> set path=%PATH%;"C:\Program Files (x86)\Microsoft Visual Stu­dio 10.0\VC\bin"
+C:\RXTX\build> set path=%PATH%;"C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin"
 ```
 
 Then edit Makefile and correct path variables, in particular: JAVA_HOME, JUNIT_JAR, JAVAC, JAR, JAVAH, JAVA. Finally run:
