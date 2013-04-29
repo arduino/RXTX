@@ -11,3 +11,5 @@ stamp-h1
 gnu
 x86_64-unknown-linux-gnu
 RXTXcomm.jar
+/bin/
+/i686-pc-linux-gnu/
