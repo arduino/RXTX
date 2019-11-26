@@ -24,6 +24,7 @@ Have the necessary tools in place: on debian/ubuntu `apt-get install build-essen
 
 ```bash
 mkdir build
+cd build
 ../configure
 make
 ```
